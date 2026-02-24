@@ -5,7 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ramak Kala Bildirim Formu – ZF</title>
   <meta name="description" content="İş güvenliği ramak kala bildirim formu (ZF)" />
+
   <style>
+
+    .logo {
+      height:48px;
+      margin-right:12px;
+    }
+
     :root{
       --primary:#0050A0;
       --primary-2:#00A3E0;
@@ -19,58 +26,88 @@
       --ok:#16a34a;
       --focus:#2563eb;
     }
+
     *{box-sizing:border-box}
+
     body{
-      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:var(--bg); color:var(--text);
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+
+      /* 🌟 ARKA PLAN (soluk fabrika fotoğrafı) */
+      background-image:
+         linear-gradient(rgba(255,255,255,0.70), rgba(255,255,255,0.70)),
+         url("bg-factory.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
-    background-image:
-    linear-gradient(rgba(255,255,255,0.70), rgba(255,255,255,0.70)),
-    url("bg-factory.jpg");
-background-size: cover;
-background-position: center;
-background-attachment: fixed;
-``
+
     .hero{
       background: linear-gradient(90deg, var(--primary) 0%, var(--primary-2) 100%);
       color:#fff; padding:24px 16px;
     }
     .container{max-width:820px; margin:0 auto; padding:0 16px}
-    .brand{
-      display:flex; align-items:center; gap:12px;
-    }
+    .brand{display:flex; align-items:center; gap:12px;}
     .brand h1{margin:0; font-size:22px; font-weight:700}
     .brand .sub{opacity:.9; font-size:13px}
+
     .card{
       background:var(--card); border:1px solid var(--border); border-radius:14px;
       margin-top:-18px; padding:18px; box-shadow:0 8px 24px rgba(0,0,0,.05)
     }
+
     .row{display:grid; grid-template-columns:1fr 1fr; gap:14px}
     @media (max-width:640px){ .row{grid-template-columns:1fr} }
+
     label{display:block; font-weight:600; margin:10px 0 6px}
     .required::after{content:" *"; color:var(--danger)}
+
     input, select, textarea{
-      width:100%; padding:12px; border-radius:10px; border:1px solid var(--border);
-      background:#fff; color:var(--text); outline:none; transition:border .15s ease, box-shadow .15s ease;
+      width:100%; padding:12px; border-radius:10px;
+      border:1px solid var(--border);
+      background:#fff; color:var(--text);
+      outline:none; transition:border .15s ease, box-shadow .15s ease;
     }
     input:focus, select:focus, textarea:focus{
       border-color:var(--focus); box-shadow:0 0 0 3px rgba(37,99,235,.15)
     }
     textarea{min-height:120px; resize:vertical}
+
     .hint{font-size:12px; color:var(--muted); margin-top:4px}
+
     .actions{display:flex; gap:12px; align-items:center; margin-top:16px; flex-wrap:wrap}
+
     .btn{
       border:0; padding:12px 18px; border-radius:10px; cursor:pointer; font-weight:700
     }
-    .btn-primary{ background:linear-gradient(90deg, var(--primary), var(--primary-2)); color:#fff }
-    .btn-outline{ background:transparent; color:var(--text); border:1px solid var(--border) }
+
+    .btn-primary{
+      background:linear-gradient(90deg, var(--primary), var(--primary-2));
+      color:#fff;
+    }
+
+    .btn-outline{
+      background:transparent; color:var(--text); border:1px solid var(--border)
+    }
+
     .note{font-size:12px; color:var(--muted); margin-top:12px}
+
     .divider{height:1px; background:var(--border); margin:16px 0}
+
     .footer{font-size:12px; color:var(--muted); text-align:center; margin:18px 0}
-    .badge{display:inline-flex; align-items:center; gap:6px; font-size:12px; padding:6px 10px; border-radius:999px; background:#eef2ff; color:#1e3a8a}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:6px; font-size:12px;
+      padding:6px 10px; border-radius:999px;
+      background:#eef2ff; color:#1e3a8a;
+    }
+
   </style>
 </head>
+
 <body>
+
   <header class="hero">
     <div class="container brand">
       <img src="zf-logo.png" alt="ZF Logo" class="logo">
@@ -85,14 +122,13 @@ background-attachment: fixed;
   <main class="container">
     <div class="card">
 
-      <!-- FORM BAŞLANGICI -->
       <form id="ramakForm" action="https://formsubmit.co/enes.dogdu@zf.com" method="POST" enctype="multipart/form-data">
 
-        <input type="hidden" name="_subject" value="Yeni Ramak Kala Bildirimi (ZF)" />
-        <input type="hidden" name="_template" value="box" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" value="https://your-subdomain.example/tesekkurler.html" />
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
+        <input type="hidden" name="_subject" value="Yeni Ramak Kala Bildirimi (ZF)">
+        <input type="hidden" name="_template" value="box">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="tesekkurler.html">
+        <input type="text" name="_honey" style="display:none">
 
         <div class="row">
           <div>
@@ -112,20 +148,20 @@ background-attachment: fixed;
 
           <div>
             <label for="konum" class="required">Olay Yeri / Konum</label>
-            <input id="konum" name="Olay Yeri" placeholder="Örn: CYL9, HC-1, KUKA, Lojistik" required />
+            <input id="konum" name="Olay Yeri" placeholder="Örn: CYL9, HC-1, KUKA, Lojistik" required>
           </div>
         </div>
 
-        <label for="aciklama" class="required">Olay Açıklaması</label>
-        <textarea id="aciklama" name="Açıklama" placeholder="Ne oldu? Potansiyel zarar neydi?" required></textarea>
+        <label class="required">Olay Açıklaması</label>
+        <textarea name="Açıklama" required></textarea>
 
-        <label for="öneri" class="required">Öneri Açıklaması</label>
-        <textarea id="öneri" name="Öneri" placeholder="Nasıl olmalı? Önerin nedir?" required></textarea>
+        <label class="required">Öneri Açıklaması</label>
+        <textarea name="Öneri" required></textarea>
 
         <div class="row">
           <div>
-            <label for="risk" class="required">Risk Düzeyi</label>
-            <select id="risk" name="Risk Düzeyi" required>
+            <label class="required">Risk Düzeyi</label>
+            <select name="Risk Düzeyi" required>
               <option value="">Seçiniz…</option>
               <option>1 (Düşük)</option>
               <option>2 (Orta)</option>
@@ -134,37 +170,37 @@ background-attachment: fixed;
           </div>
 
           <div>
-            <label for="aksiyon">Alınan Anlık Aksiyon</label>
-            <input id="aksiyon" name="Anlık Aksiyon" placeholder="Örn: Enerji kesildi, alan şeritlendi" />
+            <label>Alınan Anlık Aksiyon</label>
+            <input name="Anlık Aksiyon">
           </div>
         </div>
 
         <div class="row">
           <div>
-            <label for="raporlayan" class="required">Raporlayan Kişi</label>
-            <input id="raporlayan" name="Raporlayan" placeholder="Ad Soyad" required />
+            <label class="required">Raporlayan Kişi</label>
+            <input name="Raporlayan" required>
           </div>
 
           <div>
-            <label for="tarih">Tarih & Saat</label>
-            <input id="tarih" name="Tarih-Saat" type="datetime-local" />
+            <label>Tarih & Saat</label>
+            <input id="tarih" name="Tarih-Saat" type="datetime-local">
             <div class="hint">Boş bırakırsan otomatik doldurulur.</div>
           </div>
         </div>
 
-        <label for="vardiya">Vardiya</label>
-        <select id="vardiya" name="Vardiya">
+        <label>Vardiya</label>
+        <select name="Vardiya">
           <option value="">Seçiniz…</option>
           <option>1 (00/08)</option>
           <option>2 (08/16)</option>
           <option>3 (16/00)</option>
         </select>
 
-        <label for="ekipman">İlgili Ekipman</label>
-        <input id="ekipman" name="Ekipman" placeholder="Örn: Forklift #12" />
+        <label>İlgili Ekipman</label>
+        <input name="Ekipman">
 
-        <label for="foto" class="required">Fotoğraf (zorunlu)</label>
-        <input id="foto" name="Fotoğraf" type="file" accept="image/*" capture="environment" required />
+        <label class="required">Fotoğraf (zorunlu)</label>
+        <input type="file" name="Fotoğraf" accept="image/*" capture="environment" required>
 
         <div class="divider"></div>
 
@@ -175,19 +211,16 @@ background-attachment: fixed;
         </div>
 
         <p class="note">Veriler yalnızca olay bildirimi amacıyla kullanılacaktır.</p>
+
       </form>
-      <!-- FORM BİTİŞİ -->
 
     </div>
 
     <p class="footer">© ZF – İSG | Bu form QR ile erişim için optimize edilmiştir.</p>
+
   </main>
 
   <script>
-    .logo {
-  height: 48px;
-  margin-right: 12px;
-}
     (function(){
       const form = document.getElementById('ramakForm');
       const tarih = document.getElementById('tarih');
@@ -196,21 +229,23 @@ background-attachment: fixed;
       if (tarih && !tarih.value){
         const now = new Date();
         const pad = n => String(n).padStart(2,'0');
-        const local = now.getFullYear() + '-' + pad(now.getMonth()+1) + '-' + pad(now.getDate())
-          + 'T' + pad(now.getHours()) + ':' + pad(now.getMinutes());
-        tarih.value = local;
+        tarih.value = 
+          now.getFullYear() + "-" +
+          pad(now.getMonth()+1) + "-" +
+          pad(now.getDate()) + "T" +
+          pad(now.getHours()) + ":" +
+          pad(now.getMinutes());
       }
 
       form.addEventListener('submit', () => {
-        state.textContent = 'Gönderiliyor…';
+        state.textContent = "Gönderiliyor…";
         setTimeout(() => {
-          state.textContent = 'Form gönderildi ise teşekkür sayfasına yönlendirileceksiniz.';
+          state.textContent = "Form gönderildi ise teşekkür sayfasına yönlendirileceksiniz.";
         }, 1500);
       });
+
     })();
   </script>
 
 </body>
-
 </html>
-
