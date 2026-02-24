@@ -24,6 +24,13 @@
       margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       background:var(--bg); color:var(--text);
     }
+    background-image:
+    linear-gradient(rgba(255,255,255,0.70), rgba(255,255,255,0.70)),
+    url("assets/bg-factory.jpg");
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+``
     .hero{
       background: linear-gradient(90deg, var(--primary) 0%, var(--primary-2) 100%);
       color:#fff; padding:24px 16px;
@@ -66,6 +73,7 @@
 <body>
   <header class="hero">
     <div class="container brand">
+      <img src="assets/zf-logo.png" alt="ZF Logo" class="logo">
       <div>
         <h1>Ramak Kala Bildirim Formu</h1>
         <div class="sub">ZF | İş Sağlığı ve Güvenliği – Hızlı Bildirim</div>
@@ -176,6 +184,10 @@
   </main>
 
   <script>
+    .logo {
+  height: 48px;
+  margin-right: 12px;
+}
     (function(){
       const form = document.getElementById('ramakForm');
       const tarih = document.getElementById('tarih');
@@ -199,4 +211,5 @@
   </script>
 
 </body>
+
 </html>
