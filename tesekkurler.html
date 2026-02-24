@@ -4,35 +4,70 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Teşekkürler</title>
+
   <style>
     body {
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, sans-serif;
-  text-align: center;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, sans-serif;
+      text-align: center;
 
-  /* Logo arka plan */
-  background-image: 
-      linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
-      url("assets/zf-logo.png");
+      /* Saydam logo arka plan */
+      background-image: 
+          linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+          url("zf-logo.png");
 
-  background-repeat: no-repeat;
-  background-size: contain;      /* Logo tamamen görünür */
-  background-position: center;   /* Ortalanır */
-  background-attachment: fixed;  /* Desktop'ta sabit */
-}
-    .box{background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:24px; max-width:520px; text-align:center}
-    h1{margin:0 0 8px; color:#0f172a}
-    p{margin:8px 0; color:#475569}
-    a.btn{display:inline-block; margin-top:12px; padding:10px 14px; border-radius:10px; color:#fff; text-decoration:none; background:linear-gradient(90deg,#0050A0,#00A3E0)}
+      background-repeat: no-repeat;
+      background-size: contain;     /* Logo tamamen görünür */
+      background-position: center;  /* Ortalanır */
+      background-attachment: fixed; /* Sabit arka plan */
+    }
+
+    .box {
+      background: #ffffffd8;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 32px;
+      max-width: 520px;
+      margin: 18vh auto;
+      text-align: center;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      color: #0f172a;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 10px 0;
+      color: #475569;
+      font-size: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      background: linear-gradient(90deg, #0050A0, #00A3E0);
+    }
   </style>
 </head>
+
 <body>
   <div class="box">
     <h1>Teşekkürler 🙏</h1>
-    <p>Ramak kala bildiriminiz alındı. İSG ekibi en kısa sürede değerlendirecek.</p>
-    ./Yeni bildirim gönder</a>
+    <p>Ramak kala bildiriminiz başarıyla alındı.</p>
+    <p>İSG ekibi en kısa sürede değerlendirecektir.</p>
+
+    <a href="index.html" class="btn">Yeni Bildirim Gönder</a>
   </div>
 </body>
-
 </html>
