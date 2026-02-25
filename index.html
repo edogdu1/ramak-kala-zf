@@ -251,9 +251,77 @@
 
     })();
   </script>
+<script>
+(function(){
+  const form = document.getElementById('ramakForm');
+  const tarih = document.getElementById('tarih');
+  const state = document.getElementById('state');
 
+  // Tarih otomatik
+  if (tarih && !tarih.value){
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    tarih.value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  }
+
+  // 🔥 BURAYA Power Automate URL'ini yapıştır
+  const paUrl = "BURAYA_SENİN_POWER_AUTOMATE_URL'İN_GELECEK";
+
+  const fileToDataUrl = (file) => new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);  // data:image/...;base64,...
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    state.textContent = "Gönderiliyor…";
+
+    try {
+      const fileInput = form.querySelector('input[type="file"][name="Fotoğraf"]');
+      const file = fileInput.files[0];
+      const FotoDosyaAdi = file.name;
+      const FotoContent = await fileToDataUrl(file);
+
+      const payload = {
+        Bolum: document.getElementById('bolum').value,
+        OlayYeri: document.getElementById('konum').value,
+        Aciklama: form.querySelector('[name="Açıklama"]').value,
+        Oneri: form.querySelector('[name="Öneri"]').value,
+        RiskDuzeyi: form.querySelector('[name="Risk Düzeyi"]').value,
+        AnlikAksiyon: form.querySelector('[name="Anlık Aksiyon"]').value || "",
+        Raporlayan: form.querySelector('[name="Raporlayan"]').value,
+        TarihSaat: document.getElementById('tarih').value,
+        Vardiya: form.querySelector('[name="Vardiya"]').value || "",
+        Ekipman: form.querySelector('[name="Ekipman"]').value || "",
+        FotoDosyaAdi,
+        FotoContent
+      };
+
+      const res = await fetch(paUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error("PA gönderim hatası");
+
+      state.textContent = "Gönderildi!";
+      window.location.href = "https://edogdu1.github.io/ramak-kala-zf/tesekkurler.html";
+
+    } catch(err){
+      console.error(err);
+      state.textContent = "Gönderim hatası!";
+      alert("Gönderilemedi.");
+    }
+  });
+})();
+</script>
+  
 </body>
 </html>
+
 
 
 
