@@ -7,38 +7,23 @@
   <meta name="description" content="İş güvenliği ramak kala bildirim formu (ZF)" />
 
   <style>
-/* Önceki .logo tanımını bununla değiştir */
-.logo{
-  height: 28px;                 /* Daha görünür boyut */
-  width: auto;                  /* Oran korunsun */
-  margin-right: 10px;
-  display: inline-block;
-  vertical-align: middle;
-  image-rendering: -webkit-optimize-contrast; /* WebKit için kenar netliği */
-  image-rendering: crisp-edges;               /* Diğerlerinde keskinlik */
-  -webkit-user-drag: none; user-select: none; /* Sürükleme kapanır */
-}
+    /* ——— Logo ayarları ——— */
+    .logo{
+      height: 28px; /* Daha görünür boyut */
+      width: auto;  /* Oran korunsun */
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: middle;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      -webkit-user-drag: none; user-select: none;
+    }
+    @media (max-width: 480px){
+      .logo{ height: 24px; }
+    }
+    .logo-shadow{ filter: drop-shadow(0 1px 2px rgba(0,0,0,.25)); }
+    .logo-mono-white{ filter: brightness(0) invert(1); opacity:.95; }
 
-/* Küçük ekranlarda otomatik küçültsün */
-@media (max-width: 480px){
-  .logo{ height: 24px; }
-}
-
-/* Logo ile metni güzel hizalamak için brand iyileştirmesi */
-.brand{
-  display:flex; align-items:center; gap:12px;
-}
-
-/* İsteğe bağlı: karanlık/yoğun arka planlarda logo daha belirgin olsun diye hafif gölge */
-.logo-shadow{
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
-}
-
-/* Seçenek: Tek renk beyaz logo görünümü istersek (PNG/SVG koyu renkliyse) */
-.logo-mono-white{
-  filter: brightness(0) invert(1);   /* Beyaza çevirir */
-  opacity: .95;
-}
     :root{
       --primary:#0050A0;
       --primary-2:#00A3E0;
@@ -59,17 +44,29 @@
 
     *{box-sizing:border-box}
 
+    html, body{
+      min-height: 100dvh; /* Mobilde güvenli yükseklik */
+    }
+
     body{
       margin:0;
       font-family:system-ui,-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--text);
+      background-color:#e9eef5; /* Görsel boyanmazsa beyaz yerine yumuşak arka plan */
 
-      /* ——— Arka plan resmi daha görünür: body üzerindeki beyaz örtü kaldırıldı ——— */
+      /* Arka plan resmi (daha görünür) */
       background-image: url("bg-factory.jpg");
       background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      background-position: center center;
+      background-attachment: fixed; /* Masaüstünde sabit */
       background-repeat:no-repeat;
+    }
+    /* iOS/Safari ve mobilde fixed arka plan sorun çıkarır → scroll'a al */
+    @media (max-width: 768px){
+      body{ background-attachment: scroll; }
+    }
+    @supports (-webkit-touch-callout: none){
+      body{ background-attachment: scroll; } /* iOS özel */
     }
 
     .hero{
@@ -81,8 +78,14 @@
     .brand h1{margin:0; font-size:22px; font-weight:700}
     .brand .sub{opacity:.9; font-size:13px}
 
+    .badge{
+      display:inline-flex; align-items:center; gap:6px; font-size:12px;
+      padding:6px 10px; border-radius:999px;
+      background:#eef2ff; color:#1e3a8a;
+    }
+
     .card{
-      /* ——— Şeffaf kart: cam efekti + arka plan görünürlüğü ——— */
+      /* Şeffaf kart (cam efekti) */
       background: rgba(255,255,255,0.78);
       border:1px solid rgba(229,231,235,0.7);
       border-radius:14px;
@@ -93,7 +96,7 @@
       backdrop-filter: blur(6px);
     }
 
-    /* Grid düzeni: hizalı ve eş ölçü */
+    /* Grid düzeni */
     .row{
       display:grid; grid-template-columns:1fr 1fr; gap:14px
     }
@@ -102,18 +105,16 @@
     label{display:block; font-weight:600; margin:8px 0 6px}
     .required::after{content:" *"; color:var(--danger)}
 
-    /* Tüm form elemanları eş yükseklik ve stil */
+    /* Form elemanları eş yükseklik ve stil */
     input, select, textarea{
-      width:100%; 
+      width:100%;
       border-radius:var(--radius);
       border:1px solid var(--border);
       background:#fff; color:var(--text);
-      outline:none; 
+      outline:none;
       transition:border .15s ease, box-shadow .15s ease, background-color .15s ease;
       font-size:14px;
     }
-
-    /* Kontrollere tutarlı yükseklik/padding */
     input, select{
       height: var(--control-h);
       padding: 0 12px;
@@ -121,27 +122,13 @@
     }
     textarea{
       padding:12px;
-      min-height: 120px; 
+      min-height: 120px;
       resize:vertical;
     }
+    input:focus, select:focus, textarea:focus{
+      border-color:var(--focus); box-shadow:0 0 0 3px rgba(37,99,235,.15)
+    }
 
-    /* Dosya girişinde de aynı yükseklik */
-.photo-btn{
-  display: inline-block;
-  padding: 12px 18px;
-  background: linear-gradient(90deg, var(--primary), var(--primary-2));
-  color: #fff;
-  border-radius: var(--radius);
-  font-weight: 700;
-  cursor: pointer;
-  text-align:center;
-  width:100%;
-}
-
-/* Gerçek inputu gizle */
-.photo-btn input{
-  display:none;
-}
     .hint{font-size:12px; color:var(--muted); margin-top:4px}
 
     .actions{display:flex; gap:12px; align-items:center; margin-top:16px; flex-wrap:wrap}
@@ -161,14 +148,92 @@
     .divider{height:1px; background:var(--border); margin:16px 0}
     .footer{font-size:12px; color:var(--muted); text-align:center; margin:18px 0}
 
-    .badge{
-      display:inline-flex; align-items:center; gap:6px; font-size:12px;
-      padding:6px 10px; border-radius:999px;
-      background:#eef2ff; color:#1e3a8a;
+    .field{display:flex; flex-direction:column}
+
+    /* ——— Fotoğraf Çek: 3 yöntem bir arada ——— */
+
+    /* #1 — Native dosya butonu (deneysel: buton yazısını “Fotoğraf Çek” yapmayı dener) */
+    input[type="file"].file-native{
+      width:100%;
+      height:auto;
+      line-height: normal;
+      padding: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+    }
+    input[type="file"].file-native::file-selector-button{
+      margin: 0;
+      padding: 10px 14px;
+      border: 0;
+      border-right: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 1px) 0 0 calc(var(--radius) - 1px);
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      content: "Fotoğraf Çek"; /* Bazı motorlarda çalışır */
+    }
+    input[type="file"].file-native::-webkit-file-upload-button{
+      margin: 0;
+      padding: 10px 14px;
+      border: 0;
+      border-right: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 1px) 0 0 calc(var(--radius) - 1px);
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      content: "Fotoğraf Çek"; /* Bazı motorlarda çalışır */
+    }
+    input[type="file"].file-native::file-selector-button:hover,
+    input[type="file"].file-native::-webkit-file-upload-button:hover{
+      filter: brightness(1.05);
+    }
+    input[type="file"].file-native:focus{
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
     }
 
-    /* Form alan grupları için küçük hizalama iyileştirmeleri */
-    .field{display:flex; flex-direction:column}
+    /* #2 + #3 — Özel buton (kamera ikonlu premium) */
+    .photo-btn{
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
+      color: #fff;
+      border-radius: var(--radius);
+      font-weight: 700;
+      cursor: pointer;
+      text-align:center;
+      width:100%;
+      user-select:none;
+    }
+    .photo-btn input[type="file"]{ display:none; } /* Gerçek input gizli */
+    .photo-btn .cam-ico{
+      font-size: 18px;
+      line-height: 1;
+      display:inline-block;
+    }
+
+    /* Önizleme */
+    .photo-preview{ margin-top:8px; display:none; }
+    .photo-preview.active{ display:block; }
+    .photo-preview img{
+      max-width:100%;
+      border-radius: 8px;
+      border:1px solid var(--border);
+    }
+
+    /* (Opsiyonel) Mobilde native inputu gizleyip sadece özel butonu gösterelim */
+    @media (max-width: 600px){
+      #foto-native{ display:none; }
+    }
   </style>
 </head>
 
@@ -181,7 +246,8 @@
         <h1>Ramak Kala Bildirim Formu</h1>
         <div class="sub">ZF | İş Sağlığı ve Güvenliği</div>
       </div>
-      </div>
+      <span class="badge" style="margin-left:auto">QR ile erişim</span>
+    </div>
   </header>
 
   <main class="container">
@@ -192,7 +258,6 @@
         <input type="hidden" name="_subject" value="Yeni Ramak Kala Bildirimi (ZF)">
         <input type="hidden" name="_template" value="box">
         <input type="hidden" name="_captcha" value="false">
-        <!-- aynı anahtar 2 kez olmamalı; tek bir _next bırakıldı -->
         <input type="hidden" name="_next" value="https://edogdu1.github.io/ramak-kala-zf/tesekkurler.html">
 
         <div class="field">
@@ -257,34 +322,42 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="field">
-            <label>Vardiya</label>
-            <select name="Vardiya">
-              <option value="">Seçiniz…</option>
-              <option>00:00/08:00</option>
-              <option>08:00/16:00</option>
-              <option>16:00/00:00</option>
-            </select>
-          </div>
+        <!-- ——— Fotoğraf Çek: 3 yöntem bir arada ——— -->
+        <div class="field">
+          <label class="required" for="foto-custom">Fotoğraf (zorunlu)</label>
 
-          <div class="field">
-            <label>İlgili Ekipman</label>
-            <input name="Ekipman">
+          <!-- #1 — Native input (opsiyonel) -->
+          <input
+            id="foto-native"
+            class="file-native"
+            type="file"
+            name="Fotoğraf (Native)"
+            accept="image/*"
+            capture="environment"
+            style="margin-bottom:8px"
+          >
+
+          <!-- #2 + #3 — Özel buton (asıl zorunlu) + kamera ikonlu premium -->
+          <label class="photo-btn" for="foto-custom" style="margin-bottom:8px">
+            <span class="cam-ico">📸</span>
+            <span>Fotoğraf Çek</span>
+            <input
+              id="foto-custom"
+              type="file"
+              name="Fotoğraf"
+              accept="image/*"
+              capture="environment"
+              required
+            >
+          </label>
+
+          <div class="hint">Kamerayı açmak için butona dokunun. iOS bazı sürümlerde galeri/kamera seçimi gösterebilir.</div>
+
+          <!-- Önizleme (opsiyonel ama tavsiye) -->
+          <div id="photoPreview" class="photo-preview">
+            <img id="photoPreviewImg" alt="Seçilen fotoğraf önizlemesi">
           </div>
         </div>
-      
-<div class="field">
-  <label class="required">Fotoğraf (zorunlu)</label>
-
-  <label class="photo-btn">
-    Fotoğraf Çek
-    <input type="file" name="Fotoğraf" accept="image/*" capture="environment" required>
-  </label>
-
-  <div class="hint">Kamerayı açmak için butona dokunun.</div>
-</div>
-
 
         <div class="divider"></div>
 
@@ -310,6 +383,7 @@
       const tarih = document.getElementById('tarih');
       const state = document.getElementById('state');
 
+      // Tarih-Saat otomatik
       if (tarih && !tarih.value){
         const now = new Date();
         const pad = n => String(n).padStart(2,'0');
@@ -321,17 +395,37 @@
           pad(now.getMinutes());
       }
 
+      // Gönderim geri bildirim yazısı
       form.addEventListener('submit', () => {
         state.textContent = "Gönderiliyor…";
         setTimeout(() => {
           state.textContent = "Form gönderildi ise teşekkür sayfasına yönlendirileceksiniz.";
         }, 1500);
       });
+
+      // ——— Özel butonda seçilen fotoğrafı önizle ———
+      const customInput = document.getElementById('foto-custom');
+      const previewWrap = document.getElementById('photoPreview');
+      const previewImg  = document.getElementById('photoPreviewImg');
+
+      if(customInput && previewWrap && previewImg){
+        customInput.addEventListener('change', () => {
+          const file = customInput.files && customInput.files[0];
+          if(!file){
+            previewWrap.classList.remove('active');
+            previewImg.removeAttribute('src');
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = e => {
+            previewImg.src = e.target.result;
+            previewWrap.classList.add('active');
+          };
+          reader.readAsDataURL(file);
+        });
+      }
     })();
   </script>
 
 </body>
 </html>
-
-
-
