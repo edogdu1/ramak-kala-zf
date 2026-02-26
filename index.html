@@ -126,16 +126,57 @@
     }
 
     /* Dosya girişinde de aynı yükseklik */
-    input[type="file"]{
-      padding:10px 12px;
-      height:auto; /* native dosya inputları için daha iyi */
-      background:#fff;
-    }
+   /* --- Dosya seç alanı için modern, tutarlı görünüm --- */
+input[type="file"]{
+  /* Diğer input/select kurallarının etkisini nötrle */
+  height: auto;
+  line-height: normal;
+  padding: 0;                 /* Buton + dosya adı birlikte gelsin */
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  width: 100%;
+}
 
-    input:focus, select:focus, textarea:focus{
-      border-color:var(--focus); box-shadow:0 0 0 3px rgba(37,99,235,.15)
-    }
+/* Chromium/Firefox/Edge (modern) - buton kısmını özelleştirir */
+input[type="file"]::file-selector-button{
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 1px) 0 0 calc(var(--radius) - 1px);
+  background: linear-gradient(90deg, var(--primary), var(--primary-2));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
 
+/* Safari/WebKit eski türevleri için */
+input[type="file"]::-webkit-file-upload-button{
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 1px) 0 0 calc(var(--radius) - 1px);
+  background: linear-gradient(90deg, var(--primary), var(--primary-2));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Hover/Focus durumları */
+input[type="file"]::file-selector-button:hover,
+input[type="file"]::-webkit-file-upload-button:hover{
+  filter: brightness(1.05);
+}
+
+input[type="file"]:focus{
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
     .hint{font-size:12px; color:var(--muted); margin-top:4px}
 
     .actions{display:flex; gap:12px; align-items:center; margin-top:16px; flex-wrap:wrap}
@@ -319,4 +360,5 @@
 
 </body>
 </html>
+
 
