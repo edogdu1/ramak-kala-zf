@@ -116,9 +116,9 @@
       <img src="zf-logo.png" alt="ZF Logo" class="logo">
       <div>
         <h1>Ramak Kala Bildirim Formu</h1>
-        <div class="sub">ZF | İş Sağlığı ve Güvenliği – Hızlı Bildirim</div>
+        <div class="sub">ZF | İş Sağlığı ve Güvenliği</div>
       </div>
-      <span class="badge" style="margin-left:auto">Mobil uyumlu • QR ile erişim</span>
+      <span class="badge" style="margin-left:auto">QR ile erişim</span>
     </div>
   </header>
 
@@ -133,7 +133,10 @@
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="tesekkurler.html">
         <input type="hidden" name="_next" value="https://edogdu1.github.io/ramak-kala-zf/tesekkurler.html">
-
+         <div>
+            <label class="required">Ad / Soyad</label>
+            <input name="Raporlayan" required>
+          </div>
         <div class="row">
           <div>
             <label for="bolum" class="required">Bölüm/Birim</label>
@@ -141,15 +144,22 @@
               <option value="">Seçiniz…</option>
               <option>Aktüatör</option>
               <option>Plena</option>
+              <option>Crankshaft</option>
               <option>Bakım</option>
               <option>Lojistik</option>
+              <option>Preshane</option>
               <option>Kalite</option>
               <option>İSG</option>
               <option>ME</option>
               <option>Management</option>
             </select>
           </div>
-
+          <div>
+            <label>Tarih & Saat</label>
+            <input id="tarih" name="Tarih-Saat" type="datetime-local">
+            <div class="hint">Boş bırakırsan otomatik doldurulur.</div>
+          </div>
+        </div>
           <div>
             <label for="konum" class="required">Olay Yeri / Konum</label>
             <input id="konum" name="Olay Yeri" placeholder="Örn: CYL9, HC-1, KUKA, Lojistik" required>
@@ -167,9 +177,9 @@
             <label class="required">Risk Düzeyi</label>
             <select name="Risk Düzeyi" required>
               <option value="">Seçiniz…</option>
-              <option>1 (Düşük)</option>
-              <option>2 (Orta)</option>
-              <option>3 (Yüksek)</option>
+              <option>Düşük</option>
+              <option>Orta</option>
+              <option>Yüksek</option>
             </select>
           </div>
 
@@ -180,24 +190,13 @@
         </div>
 
         <div class="row">
-          <div>
-            <label class="required">Raporlayan Kişi</label>
-            <input name="Raporlayan" required>
-          </div>
-
-          <div>
-            <label>Tarih & Saat</label>
-            <input id="tarih" name="Tarih-Saat" type="datetime-local">
-            <div class="hint">Boş bırakırsan otomatik doldurulur.</div>
-          </div>
-        </div>
-
+          
         <label>Vardiya</label>
         <select name="Vardiya">
           <option value="">Seçiniz…</option>
-          <option>1 (00/08)</option>
-          <option>2 (08/16)</option>
-          <option>3 (16/00)</option>
+          <option>00/08</option>
+          <option>08/16</option>
+          <option>16/00</option>
         </select>
 
         <label>İlgili Ekipman</label>
@@ -254,3 +253,4 @@
 
 </body>
 </html>
+
