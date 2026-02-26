@@ -7,12 +7,38 @@
   <meta name="description" content="İş güvenliği ramak kala bildirim formu (ZF)" />
 
   <style>
+/* Önceki .logo tanımını bununla değiştir */
+.logo{
+  height: 28px;                 /* Daha görünür boyut */
+  width: auto;                  /* Oran korunsun */
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  image-rendering: -webkit-optimize-contrast; /* WebKit için kenar netliği */
+  image-rendering: crisp-edges;               /* Diğerlerinde keskinlik */
+  -webkit-user-drag: none; user-select: none; /* Sürükleme kapanır */
+}
 
-    .logo {
-      height:16px;
-      margin-right:4px;
-    }
+/* Küçük ekranlarda otomatik küçültsün */
+@media (max-width: 480px){
+  .logo{ height: 24px; }
+}
 
+/* Logo ile metni güzel hizalamak için brand iyileştirmesi */
+.brand{
+  display:flex; align-items:center; gap:12px;
+}
+
+/* İsteğe bağlı: karanlık/yoğun arka planlarda logo daha belirgin olsun diye hafif gölge */
+.logo-shadow{
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
+}
+
+/* Seçenek: Tek renk beyaz logo görünümü istersek (PNG/SVG koyu renkliyse) */
+.logo-mono-white{
+  filter: brightness(0) invert(1);   /* Beyaza çevirir */
+  opacity: .95;
+}
     :root{
       --primary:#0050A0;
       --primary-2:#00A3E0;
@@ -25,21 +51,25 @@
       --danger:#ef4444;
       --ok:#16a34a;
       --focus:#2563eb;
+
+      /* Tutarlı alan yüksekliği için değişkenler */
+      --control-h: 46px;
+      --radius: 12px;
     }
 
     *{box-sizing:border-box}
 
     body{
       margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-family:system-ui,-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--text);
 
-      background-image:
-         linear-gradient(rgba(255,255,255,0.70), rgba(255,255,255,0.70)),
-         url("bg-factory.jpg");
+      /* ——— Arka plan resmi daha görünür: body üzerindeki beyaz örtü kaldırıldı ——— */
+      background-image: url("bg-factory.jpg");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      background-repeat:no-repeat;
     }
 
     .hero{
@@ -52,30 +82,59 @@
     .brand .sub{opacity:.9; font-size:13px}
 
     .card{
-      background:var(--card);
-      border:1px solid var(--border);
+      /* ——— Şeffaf kart: cam efekti + arka plan görünürlüğü ——— */
+      background: rgba(255,255,255,0.78);
+      border:1px solid rgba(229,231,235,0.7);
       border-radius:14px;
       margin-top:-18px;
       padding:18px;
-      box-shadow:0 8px 24px rgba(0,0,0,.05)
+      box-shadow:0 10px 28px rgba(0,0,0,.12);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
     }
 
-    .row{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    /* Grid düzeni: hizalı ve eş ölçü */
+    .row{
+      display:grid; grid-template-columns:1fr 1fr; gap:14px
+    }
     @media (max-width:640px){ .row{grid-template-columns:1fr} }
 
-    label{display:block; font-weight:600; margin:10px 0 6px}
+    label{display:block; font-weight:600; margin:8px 0 6px}
     .required::after{content:" *"; color:var(--danger)}
 
+    /* Tüm form elemanları eş yükseklik ve stil */
     input, select, textarea{
-      width:100%; padding:12px; border-radius:10px;
+      width:100%; 
+      border-radius:var(--radius);
       border:1px solid var(--border);
       background:#fff; color:var(--text);
-      outline:none; transition:border .15s ease, box-shadow .15s ease;
+      outline:none; 
+      transition:border .15s ease, box-shadow .15s ease, background-color .15s ease;
+      font-size:14px;
     }
+
+    /* Kontrollere tutarlı yükseklik/padding */
+    input, select{
+      height: var(--control-h);
+      padding: 0 12px;
+      line-height: calc(var(--control-h) - 2px);
+    }
+    textarea{
+      padding:12px;
+      min-height: 120px; 
+      resize:vertical;
+    }
+
+    /* Dosya girişinde de aynı yükseklik */
+    input[type="file"]{
+      padding:10px 12px;
+      height:auto; /* native dosya inputları için daha iyi */
+      background:#fff;
+    }
+
     input:focus, select:focus, textarea:focus{
       border-color:var(--focus); box-shadow:0 0 0 3px rgba(37,99,235,.15)
     }
-    textarea{min-height:120px; resize:vertical}
 
     .hint{font-size:12px; color:var(--muted); margin-top:4px}
 
@@ -84,20 +143,16 @@
     .btn{
       border:0; padding:12px 18px; border-radius:10px; cursor:pointer; font-weight:700
     }
-
     .btn-primary{
       background:linear-gradient(90deg, var(--primary), var(--primary-2));
       color:#fff;
     }
-
     .btn-outline{
       background:transparent; color:var(--text); border:1px solid var(--border)
     }
 
     .note{font-size:12px; color:var(--muted); margin-top:12px}
-
     .divider{height:1px; background:var(--border); margin:16px 0}
-
     .footer{font-size:12px; color:var(--muted); text-align:center; margin:18px 0}
 
     .badge{
@@ -106,6 +161,8 @@
       background:#eef2ff; color:#1e3a8a;
     }
 
+    /* Form alan grupları için küçük hizalama iyileştirmeleri */
+    .field{display:flex; flex-direction:column}
   </style>
 </head>
 
@@ -118,27 +175,27 @@
         <h1>Ramak Kala Bildirim Formu</h1>
         <div class="sub">ZF | İş Sağlığı ve Güvenliği</div>
       </div>
-      <span class="badge" style="margin-left:auto">QR ile erişim</span>
-    </div>
+      </div>
   </header>
 
   <main class="container">
     <div class="card">
 
-      <!-- ✔ DOĞRU FORM BAŞLANGICI -->
+      <!-- ✔ FORM -->
       <form id="ramakForm" action="https://formsubmit.co/enes.doqdu@gmail.com" method="POST" enctype="multipart/form-data">
-
         <input type="hidden" name="_subject" value="Yeni Ramak Kala Bildirimi (ZF)">
         <input type="hidden" name="_template" value="box">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="tesekkurler.html">
+        <!-- aynı anahtar 2 kez olmamalı; tek bir _next bırakıldı -->
         <input type="hidden" name="_next" value="https://edogdu1.github.io/ramak-kala-zf/tesekkurler.html">
-         <div>
-            <label class="required">Ad / Soyad</label>
-            <input name="Raporlayan" required>
-          </div>
+
+        <div class="field">
+          <label class="required">Ad / Soyad</label>
+          <input name="Raporlayan" required>
+        </div>
+
         <div class="row">
-          <div>
+          <div class="field">
             <label for="bolum" class="required">Bölüm/Birim</label>
             <select id="bolum" name="Bölüm" required>
               <option value="">Seçiniz…</option>
@@ -154,26 +211,31 @@
               <option>Management</option>
             </select>
           </div>
-          <div>
-            <label>Tarih & Saat</label>
+
+          <div class="field">
+            <label for="tarih">Tarih &amp; Saat</label>
             <input id="tarih" name="Tarih-Saat" type="datetime-local">
             <div class="hint">Boş bırakırsan otomatik doldurulur.</div>
           </div>
         </div>
-          <div>
-            <label for="konum" class="required">Olay Yeri / Konum</label>
-            <input id="konum" name="Olay Yeri" placeholder="Örn: CYL9, HC-1, KUKA, Lojistik" required>
-          </div>
+
+        <div class="field">
+          <label for="konum" class="required">Olay Yeri / Konum</label>
+          <input id="konum" name="Olay Yeri" placeholder="Örn: CYL9, HC-1, KUKA, Lojistik" required>
         </div>
 
-        <label class="required">Olay Açıklaması</label>
-        <textarea name="Açıklama" required></textarea>
+        <div class="field">
+          <label class="required">Olay Açıklaması</label>
+          <textarea name="Açıklama" required></textarea>
+        </div>
 
-        <label class="required">Öneri Açıklaması</label>
-        <textarea name="Öneri" required></textarea>
+        <div class="field">
+          <label class="required">Öneri Açıklaması</label>
+          <textarea name="Öneri" required></textarea>
+        </div>
 
         <div class="row">
-          <div>
+          <div class="field">
             <label class="required">Risk Düzeyi</label>
             <select name="Risk Düzeyi" required>
               <option value="">Seçiniz…</option>
@@ -183,27 +245,33 @@
             </select>
           </div>
 
-          <div>
+          <div class="field">
             <label>Alınan Anlık Aksiyon</label>
             <input name="Anlık Aksiyon">
           </div>
         </div>
 
         <div class="row">
-          
-        <label>Vardiya</label>
-        <select name="Vardiya">
-          <option value="">Seçiniz…</option>
-          <option>00/08</option>
-          <option>08/16</option>
-          <option>16/00</option>
-        </select>
+          <div class="field">
+            <label>Vardiya</label>
+            <select name="Vardiya">
+              <option value="">Seçiniz…</option>
+              <option>00/08</option>
+              <option>08/16</option>
+              <option>16/00</option>
+            </select>
+          </div>
 
-        <label>İlgili Ekipman</label>
-        <input name="Ekipman">
+          <div class="field">
+            <label>İlgili Ekipman</label>
+            <input name="Ekipman">
+          </div>
+        </div>
 
-        <label class="required">Fotoğraf (zorunlu)</label>
-        <input type="file" name="Fotoğraf" accept="image/*" capture="environment" required>
+        <div class="field">
+          <label class="required">Fotoğraf (zorunlu)</label>
+          <input type="file" name="Fotoğraf" accept="image/*" capture="environment" required>
+        </div>
 
         <div class="divider"></div>
 
@@ -216,12 +284,11 @@
         <p class="note">Veriler yalnızca olay bildirimi amacıyla kullanılacaktır.</p>
 
       </form>
-      <!-- ✔ DOĞRU FORM BİTİŞİ -->
+      <!-- ✔ FORM BİTTİ -->
 
     </div>
 
     <p class="footer">© ZF – İSG | Bu form QR ile erişim için optimize edilmiştir.</p>
-
   </main>
 
   <script>
@@ -247,10 +314,8 @@
           state.textContent = "Form gönderildi ise teşekkür sayfasına yönlendirileceksiniz.";
         }, 1500);
       });
-
     })();
   </script>
 
 </body>
 </html>
-
